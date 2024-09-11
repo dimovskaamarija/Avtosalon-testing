@@ -32,7 +32,7 @@ class ShoppingCartServiceTest extends BaseTestData {
         shoppingCartService = new ShoppingCartServiceImpl(shoppingCartRep, avtomobilService, korisnikRep);
     }
     @Test
-    void listAllProducts() {
+    void testListAllProducts() {
         ShoppingCart shoppingCart = getShoppingCart();
         Avtomobil avtomobil = shoppingCart.getAvtomobil();
         when(shoppingCartRep.findById(shoppingCart.getId())).thenReturn(Optional.of(shoppingCart));
@@ -47,7 +47,7 @@ class ShoppingCartServiceTest extends BaseTestData {
         assertThat(avtomobil1.getAvtoSaloni()).isEqualTo(avtomobil.getAvtoSaloni());
     }
     @Test
-    void getActiveShoppingCart() {
+    void testGetActiveShoppingCart() {
         ShoppingCart shoppingCart = getShoppingCart();
         Korisnik korisnik = shoppingCart.getKorisnik();
         String username = korisnik.getUsername();
@@ -62,7 +62,7 @@ class ShoppingCartServiceTest extends BaseTestData {
         assertThat(activeCart.getKorisnik()).isEqualTo(shoppingCart.getKorisnik());
     }
     @Test
-    void addProductToShoppingCart() {
+    void testAddProductToShoppingCart() {
         ShoppingCart shoppingCart = getShoppingCart();
         Avtomobil avtomobil = shoppingCart.getAvtomobil();
         String username = shoppingCart.getKorisnik().getUsername();
@@ -79,7 +79,7 @@ class ShoppingCartServiceTest extends BaseTestData {
         assertThat(avtomobil1.getKorisnik()).isEqualTo(shoppingCart.getKorisnik());
     }
     @Test
-    void findById() {
+    void testFindById() {
         ShoppingCart shoppingCart = getShoppingCart();
         Avtomobil avtomobil = shoppingCart.getAvtomobil();
         String username = shoppingCart.getKorisnik().getUsername();

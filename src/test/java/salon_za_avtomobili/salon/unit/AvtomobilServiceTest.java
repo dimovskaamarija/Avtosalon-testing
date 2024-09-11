@@ -37,21 +37,21 @@ class AvtomobilServiceTest extends BaseTestData {
         avtomobilService=new AvtomobilServiceImpl(avtomobilRepository,avtoSalonService);
     }
     @Test
-    void listAllWithSearch() {
+    void testListAllWithSearch() {
         Avtomobil avtomobil=getAvtomobil();
         when(avtomobilRepository.findAllByNameContaining(avtomobil.getName())).thenReturn(Stream.of(avtomobil).collect(Collectors.toList()));
         List<Avtomobil> avtomobili=avtomobilService.listAllByIme(avtomobil.getName());
         assertThat(avtomobili.size()).isEqualTo(1);
     }
     @Test
-    void listWithoutSearch() {
+    void testListWithoutSearch() {
         Avtomobil avtomobil=getAvtomobil();
         when(avtomobilRepository.findAll()).thenReturn(Stream.of(avtomobil).collect(Collectors.toList()));
         List<Avtomobil> avtomobili=avtomobilService.listAll(null);
         assertThat(avtomobili.size()).isEqualTo(1);
     }
     @Test
-    void findById() {
+    void testFindById() {
         Avtomobil avtomobil=getAvtomobil();
         when(avtomobilRepository.findById(avtomobil.getId())).thenReturn(Optional.of(avtomobil));
         Avtomobil avtomobil1 = avtomobilService.findById(avtomobil.getId()).get();
@@ -65,14 +65,14 @@ class AvtomobilServiceTest extends BaseTestData {
         assertThat(avtomobil1.getAvtoSaloni()).isEqualTo(avtomobil.getAvtoSaloni());
     }
     @Test
-    void deleteById() {
+    void testDeleteById() {
         Avtomobil avtomobil = getAvtomobil();
         doNothing().when(avtomobilRepository).deleteById(avtomobil.getId());
         avtomobilService.deleteById(avtomobil.getId());
         verify(avtomobilRepository, times(1)).deleteById(avtomobil.getId());
     }
     @Test
-    void update() {
+    void testUpdate() {
         Avtomobil avtomobil = getAvtomobil();
         Avtomobil updatedCar = getUpdateAvtomobil();
         AvtoSalon avtoSalon = getUpdateAvtoSalon();
@@ -91,7 +91,7 @@ class AvtomobilServiceTest extends BaseTestData {
         assertThat(avtomobil.getAvtoSaloni()).isEqualTo(updatedCar.getAvtoSaloni());
     }
     @Test
-    void listCarsFromCarRentalShop() {
+    void testListCarsFromCarRentalShop() {
         Avtomobil avtomobil = getAvtomobil();
         List<Avtomobil> avtomobili = new ArrayList<>();
         avtomobili.add(avtomobil);
@@ -102,7 +102,7 @@ class AvtomobilServiceTest extends BaseTestData {
         assertThat(avtomobili1.size()).isEqualTo(avtomobili.size());
     }
     @Test
-    void shouldThrowCarNotFoundException() {
+    void testShouldThrowCarNotFoundException() {
         Avtomobil avtomobil = getAvtomobil();
         AvtoSalon avtoSalon = getAvtoSalon();
         when(avtomobilRepository.findById(avtomobil.getId())).thenReturn(Optional.empty());

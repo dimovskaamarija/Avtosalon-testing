@@ -31,14 +31,14 @@ class AvtoSalonServiceTest extends BaseTestData {
         avtoSalonService = new AvtoSalonServiceImpl(avtoSalonRep);
     }
     @Test
-    void listAll() {
+    void testListAll() {
         AvtoSalon avtoSalon = getAvtoSalon();
         when(avtoSalonRep.findAll()).thenReturn(Stream.of(avtoSalon).collect(Collectors.toList()));
         List<AvtoSalon> avtoSaloni = avtoSalonService.listAll();
         assertThat(avtoSaloni.size()).isEqualTo(1);
     }
     @Test
-    void findById() {
+    void testFindById() {
         AvtoSalon avtoSalon = getAvtoSalon();
         when(avtoSalonRep.findById(avtoSalon.getId())).thenReturn(Optional.of(avtoSalon));
         AvtoSalon avtoSalon1 = avtoSalonService.findById(avtoSalon.getId()).get();
@@ -49,7 +49,7 @@ class AvtoSalonServiceTest extends BaseTestData {
         assertThat(avtoSalon1.getGrad()).isEqualTo(avtoSalon.getGrad());
     }
     @Test
-    void addAvtoSalon() {
+    void testAddAvtoSalon() {
         AvtoSalon avtoSalon = getAvtoSalon();
         when(avtoSalonRep.save(any(AvtoSalon.class))).thenReturn(avtoSalon);
         AvtoSalon avtoSalon1 = avtoSalonService.save(avtoSalon.getName(), avtoSalon.getGrad(),
@@ -61,7 +61,7 @@ class AvtoSalonServiceTest extends BaseTestData {
         assertThat(avtoSalon1.getKapacitet()).isEqualTo(avtoSalon.getKapacitet());
     }
     @Test
-    void deleteById() {
+    void testDeleteById() {
         AvtoSalon avtoSalon = getAvtoSalon();
         doNothing().when(avtoSalonRep).deleteById(avtoSalon.getId());
         avtoSalonService.deleteById(avtoSalon.getId());
